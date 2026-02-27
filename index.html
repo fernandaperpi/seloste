@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seloste – Servicios Logísticos del Sureste</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:      #4DB523;
+    --green-dark: #3a9018;
+    --green-light:#e8f8df;
+    --green-mid:  #c6edb0;
+    --bg:         #f5f7f2;
+    --bg2:        #eef1ea;
+    --surface:    #ffffff;
+    --border:     #e0e5da;
+    --text:       #1a2115;
+    --text-mid:   #4a5542;
+    --text-muted: #8a9882;
+    --shadow:     0 2px 16px rgba(30,50,20,0.07);
+    --shadow-lg:  0 8px 40px rgba(30,50,20,0.11);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 68px;
+    background: rgba(245,247,242,0.93);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 38px; height: 38px; background: var(--green);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Mulish', sans-serif; font-size: 18px; font-weight: 800; color: #fff;
+  }
+  .logo-name { font-family: 'Mulish', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .logo-tagline { font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px; margin-top: -2px; }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav ul a { color: var(--text-mid); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color .18s; }
+  nav ul a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green); color: #fff;
+    padding: 9px 22px; border-radius: 8px;
+    font-size: 13.5px; font-weight: 600; text-decoration: none;
+    transition: background .18s, box-shadow .18s, transform .15s;
+    box-shadow: 0 2px 8px rgba(77,181,35,0.25);
+  }
+  .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(77,181,35,0.3); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 100px 5vw 60px; gap: 60px;
+    background: var(--bg); position: relative; overflow: hidden;
+  }
+  .hero-bg-shape {
+    position: absolute; right: -80px; top: -80px;
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse at 60% 40%, var(--green-light) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-light); border: 1px solid var(--green-mid);
+    color: var(--green-dark); font-size: 12px; font-weight: 600;
+    padding: 5px 14px; border-radius: 40px; margin-bottom: 28px;
+    animation: fadeUp .7s .05s both;
+  }
+  .hero-pill span { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+  h1.hero-headline {
+    font-family: 'Mulish', sans-serif; font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; color: var(--text);
+    animation: fadeUp .7s .15s both;
+  }
+  h1.hero-headline .accent { color: var(--green); }
+  .hero-desc {
+    font-size: 17px; line-height: 1.7; color: var(--text-mid);
+    margin-top: 22px; max-width: 480px; animation: fadeUp .7s .25s both;
+  }
+  .hero-actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; animation: fadeUp .7s .35s both; }
+  .btn-primary {
+    background: var(--green); color: #fff;
+    padding: 13px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    transition: all .18s; box-shadow: 0 3px 12px rgba(77,181,35,0.28);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(77,181,35,0.35); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 13px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    border: 1.5px solid var(--border); transition: all .18s;
+  }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-stats { display: flex; gap: 40px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); animation: fadeUp .7s .45s both; }
+  .stat-num { font-family: 'Mulish', sans-serif; font-size: 36px; font-weight: 800; color: var(--green); line-height: 1; }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+  .hero-right { position: relative; z-index: 1; animation: fadeUp .7s .2s both; }
+  .hero-card-wrap {
+    background: var(--surface); border-radius: 20px; padding: 32px;
+    box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  }
+  .hero-card-title { font-family: 'Mulish', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 20px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; }
+  .service-pill-list { display: flex; flex-direction: column; gap: 10px; }
+  .service-pill {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg); border-radius: 10px; padding: 14px 16px;
+    border: 1px solid var(--border); transition: border-color .18s, background .18s;
+    cursor: default;
+  }
+  .service-pill:hover { border-color: var(--green); background: var(--green-light); }
+  .sp-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .sp-name { font-weight: 600; font-size: 14px; }
+  .sp-desc { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+  .sp-arrow { margin-left: auto; color: var(--green); font-size: 18px; opacity: 0; transition: opacity .18s; }
+  .service-pill:hover .sp-arrow { opacity: 1; }
+
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+  /* TICKER */
+  .ticker { background: var(--green); padding: 13px 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 22s linear infinite; }
+  .ticker-item { font-family: 'Mulish', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.9); }
+  .ticker-item::before { content: "● "; font-size: 8px; vertical-align: middle; margin-right: 4px; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 88px 5vw; }
+  .sec-label {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green);
+    background: var(--green-light); padding: 4px 12px; border-radius: 40px; margin-bottom: 16px;
+  }
+  .sec-title {
+    font-family: 'Mulish', sans-serif; font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800; line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: 16px;
+  }
+  .sec-body { font-size: 16px; line-height: 1.75; color: var(--text-mid); max-width: 580px; }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-cards { display: flex; flex-direction: column; gap: 12px; }
+  .about-card {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 20px; transition: box-shadow .2s, border-color .2s;
+  }
+  .about-card:hover { box-shadow: var(--shadow); border-color: var(--green-mid); }
+  .ac-icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .ac-title { font-weight: 700; font-size: 14.5px; margin-bottom: 2px; }
+  .ac-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .about-text { display: flex; flex-direction: column; gap: 20px; }
+  .quote-block {
+    background: var(--green-light); border-left: 3px solid var(--green);
+    padding: 18px 20px; border-radius: 0 10px 10px 0;
+    font-size: 15px; font-style: italic; line-height: 1.65; color: var(--green-dark); font-weight: 500;
+  }
+  .founded-chip {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 20px; font-size: 14px; font-weight: 500; color: var(--text-mid);
+  }
+  .fc-year { font-family: 'Mulish', sans-serif; font-size: 26px; font-weight: 800; color: var(--green); }
+
+  /* SERVICES */
+  #services { background: var(--bg); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+  .svc-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px;
+    transition: box-shadow .2s, border-color .2s, transform .2s;
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .svc-card:hover { box-shadow: var(--shadow-lg); border-color: var(--green-mid); transform: translateY(-3px); }
+  .svc-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--green); transform:scaleX(0); transform-origin:left; transition:transform .25s; }
+  .svc-card:hover::after { transform: scaleX(1); }
+  .svc-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+  .svc-name { font-family: 'Mulish', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .svc-desc { font-size: 13.5px; line-height: 1.65; color: var(--text-muted); }
+  .svc-num { position: absolute; top: 16px; right: 20px; font-family: 'Mulish', sans-serif; font-size: 38px; font-weight: 800; color: var(--bg2); line-height: 1; }
+
+  /* COVERAGE */
+  #coverage { background: var(--surface); }
+  .cov-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-bottom: 48px; }
+  .states-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .state-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; transition: box-shadow .2s, border-color .2s; }
+  .state-card:hover { box-shadow: var(--shadow); border-color: var(--green-mid); }
+  .state-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .state-name { font-family: 'Mulish', sans-serif; font-size: 16px; font-weight: 700; }
+  .state-pct { background: var(--green); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+  .state-cities { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+  .state-card.highlight { background: var(--green-light); border-color: var(--green-mid); }
+  .state-card.highlight .state-name { color: var(--green-dark); }
+  .state-card.highlight .state-cities { color: var(--green-dark); opacity: .8; }
+
+  /* DIFERENCIADORES */
+  #diferenciadores { background: var(--bg); }
+  .diff-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+  .diff-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 36px; transition: box-shadow .2s; }
+  .diff-card:hover { box-shadow: var(--shadow-lg); }
+  .diff-card.featured { background: var(--green); border-color: var(--green); }
+  .diff-card.featured .diff-big, .diff-card.featured .diff-title, .diff-card.featured .diff-desc { color: #fff; }
+  .diff-card.featured .diff-desc { opacity: .8; }
+  .diff-big { font-family: 'Mulish', sans-serif; font-size: 56px; font-weight: 800; line-height: 1; color: var(--green); margin-bottom: 6px; }
+  .diff-title { font-family: 'Mulish', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .diff-desc { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); }
+
+  /* CLIENTES */
+  #clientes { background: var(--surface); }
+  .clients-flex { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+  .client-chip { background: var(--bg); border: 1.5px solid var(--border); padding: 10px 20px; border-radius: 40px; font-size: 14px; font-weight: 500; color: var(--text-mid); transition: border-color .18s, color .18s, background .18s; }
+  .client-chip:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
+  /* FLOTA */
+  #flota { background: var(--bg); }
+  .fleet-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 40px; }
+  .fleet-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px 16px; text-align: center; transition: box-shadow .2s, border-color .2s; }
+  .fleet-card:hover { box-shadow: var(--shadow); border-color: var(--green-mid); }
+  .fleet-icon { font-size: 36px; margin-bottom: 14px; }
+  .fleet-model { font-family: 'Mulish', sans-serif; font-size: 16px; font-weight: 700; }
+  .fleet-units { font-size: 12px; color: var(--green); font-weight: 600; margin-top: 4px; }
+  .certs-wrap { margin-top: 48px; }
+  .certs-title { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .certs-list { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cert-tag { display: flex; align-items: center; gap: 7px; background: var(--surface); border: 1.5px solid var(--border); padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-mid); }
+  .cert-tag::before { content: '✓'; color: var(--green); font-weight: 800; }
+
+  /* CONTACTO */
+  #contacto { background: var(--text); padding: 100px 5vw; color: #fff; text-align: center; }
+  #contacto .sec-label { background: rgba(77,181,35,0.2); color: #9de86a; }
+  #contacto .sec-title { color: #fff; margin: 0 auto 16px; }
+  #contacto .sec-body { color: rgba(255,255,255,0.55); margin: 0 auto 48px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; text-align: left; margin-bottom: 40px; }
+  .contact-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 26px; transition: border-color .18s; }
+  .contact-card:hover { border-color: var(--green); }
+  .cc-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .cc-val { font-size: 16px; font-weight: 500; line-height: 1.7; }
+  .cc-val a { color: #fff; text-decoration: none; }
+  .cc-val a:hover { color: #9de86a; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: #fff; color: var(--text); padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; transition: background .18s, transform .15s; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .btn-white:hover { background: var(--green-light); transform: translateY(-2px); }
+  .btn-ghost-white { background: transparent; color: rgba(255,255,255,0.7); padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.2); transition: all .18s; }
+  .btn-ghost-white:hover { border-color: #fff; color: #fff; }
+
+  /* FOOTER */
+  footer { background: #111a0d; padding: 28px 5vw; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.35); }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color .15s; }
+  footer a:hover { color: var(--green); }
+  .foot-links { display: flex; gap: 24px; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s, transform .65s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    #hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-right { display: none; }
+    .about-grid, .cov-intro, .diff-grid { grid-template-columns: 1fr; gap: 32px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .fleet-grid { grid-template-columns: repeat(3,1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 28px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .fleet-grid { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-wrap">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="logo-name">Seloste</div>
+      <div class="logo-tagline">Servicios Logísticos del Sureste</div>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#about">Nosotros</a></li>
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#coverage">Cobertura</a></li>
+    <li><a href="#clientes">Clientes</a></li>
+    <li><a href="#flota">Flota</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Cotizar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-left">
+    <div class="hero-pill">
+      <span></span> Fundada en Mérida, Yucatán · 2001
+    </div>
+    <h1 class="hero-headline">
+      Logística que<br><span class="accent">conecta</span><br>el Sureste
+    </h1>
+    <p class="hero-desc">Mensajería, paquetería y distribución con cobertura en 8 estados. Entregas rápidas, rastreo en tiempo real y atención personalizada para tu empresa.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Solicitar cotización →</a>
+      <a href="#services" class="btn-outline">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">25+</div>
+        <div class="stat-lbl">Años de experiencia</div>
+      </div>
+      <div>
+        <div class="stat-num">96%</div>
+        <div class="stat-lbl">Eficiencia de entrega</div>
+      </div>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-lbl">Estados con cobertura</div>
+      </div>
+      <div>
+        <div class="stat-num">15</div>
+        <div class="stat-lbl">Unidades en flota</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-wrap">
+      <div class="hero-card-title">Servicios principales</div>
+      <div class="service-pill-list">
+        <div class="service-pill">
+          <div class="sp-icon">📦</div>
+          <div><div class="sp-name">Mensajería y Paquetería</div><div class="sp-desc">Nacional, regional e internacional</div></div>
+          <div class="sp-arrow">→</div>
+        </div>
+        <div class="service-pill">
+          <div class="sp-icon">🚚</div>
+          <div><div class="sp-name">Entrega de Última Milla</div><div class="sp-desc">Directo al domicilio, con evidencia</div></div>
+          <div class="sp-arrow">→</div>
+        </div>
+        <div class="service-pill">
+          <div class="sp-icon">🏭</div>
+          <div><div class="sp-name">Almacenaje y Distribución</div><div class="sp-desc">Gestión completa de inventario</div></div>
+          <div class="sp-arrow">→</div>
+        </div>
+        <div class="service-pill">
+          <div class="sp-icon">💳</div>
+          <div><div class="sp-name">Distribución Bancaria</div><div class="sp-desc">Tarjetas, estados de cuenta y más</div></div>
+          <div class="sp-arrow">→</div>
+        </div>
+        <div class="service-pill">
+          <div class="sp-icon">🔄</div>
+          <div><div class="sp-name">Outsourcing Logístico</div><div class="sp-desc">Soluciones hechas a la medida</div></div>
+          <div class="sp-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Mensajería Nacional</span>
+    <span class="ticker-item">Última Milla</span>
+    <span class="ticker-item">Distribución Masiva</span>
+    <span class="ticker-item">Almacenaje</span>
+    <span class="ticker-item">Rastreo GPS</span>
+    <span class="ticker-item">Cobertura Sureste</span>
+    <span class="ticker-item">Outsourcing Logístico</span>
+    <span class="ticker-item">Personal Certificado</span>
+    <span class="ticker-item">Mensajería Nacional</span>
+    <span class="ticker-item">Última Milla</span>
+    <span class="ticker-item">Distribución Masiva</span>
+    <span class="ticker-item">Almacenaje</span>
+    <span class="ticker-item">Rastreo GPS</span>
+    <span class="ticker-item">Cobertura Sureste</span>
+    <span class="ticker-item">Outsourcing Logístico</span>
+    <span class="ticker-item">Personal Certificado</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="ac-icon">📍</div>
+        <div><div class="ac-title">Sede principal</div><div class="ac-desc">Mérida, Yucatán · C. 39 530a, Centro</div></div>
+      </div>
+      <div class="about-card">
+        <div class="ac-icon">🛰️</div>
+        <div><div class="ac-title">Monitoreo GPS en tiempo real</div><div class="ac-desc">Toda la flota rastreada. Evidencia fotográfica en cada entrega.</div></div>
+      </div>
+      <div class="about-card">
+        <div class="ac-icon">📋</div>
+        <div><div class="ac-title">Permiso SCT y licencias federales</div><div class="ac-desc">Operamos con todos los permisos legales vigentes.</div></div>
+      </div>
+      <div class="about-card">
+        <div class="ac-icon">🧑‍💼</div>
+        <div><div class="ac-title">Personal certificado</div><div class="ac-desc">Operadores con acceso autorizado a CEDIs y empresas.</div></div>
+      </div>
+      <div class="about-card">
+        <div class="ac-icon">🤝</div>
+        <div><div class="ac-title">Líderes de cuenta dedicados</div><div class="ac-desc">Seguimiento personalizado a cada cliente y proceso.</div></div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div>
+        <div class="sec-label">¿Quiénes somos?</div>
+        <h2 class="sec-title">Tu aliado en cada entrega</h2>
+        <p class="sec-body">Desde 2001, Seloste ha construido una reputación sólida como operador logístico de referencia en el Sureste mexicano. Nos especializamos en última milla, distribución masiva, porteos y traslado de carga, con visibilidad completa y cumplimiento garantizado en cada envío.</p>
+      </div>
+      <div class="quote-block">
+        "No somos solo un proveedor. Somos el socio que entiende las exigencias operativas de tu empresa y las resuelve con eficiencia, tecnología y compromiso."
+      </div>
+      <div class="founded-chip">
+        <div class="fc-year">2001</div>
+        <div>Fundada en Mérida · <strong>25+ años</strong> de experiencia regional</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="sec-label">¿Qué hacemos?</div>
+    <h2 class="sec-title">Nuestros servicios</h2>
+    <p class="sec-body">Soluciones logísticas completas para empresas de todos los sectores, con tecnología, personal certificado y cobertura extendida.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">📦</div>
+      <div class="svc-name">Mensajería y Paquetería</div>
+      <p class="svc-desc">Nacional, regional, interregional e internacional. Seguimiento en tiempo real, fotos de entrega y gestión de incidencias.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">🚚</div>
+      <div class="svc-name">Entrega de Última Milla</div>
+      <p class="svc-desc">Entregas directas al domicilio con flexibilidad de horario, confirmación digital y eficiencia mínima garantizada del 96%.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">💼</div>
+      <div class="svc-name">Traslado de Valijas</div>
+      <p class="svc-desc">Traslado seguro de documentos y valijas a nivel nacional, regional e interregional con cadena de custodia documentada.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">💳</div>
+      <div class="svc-name">Distribución Bancaria</div>
+      <p class="svc-desc">Entrega de tarjetas de crédito y débito, estados de cuenta masivos, verificaciones domiciliarias y recolección de documentos.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">🏭</div>
+      <div class="svc-name">Almacenaje y Logística</div>
+      <p class="svc-desc">Recepción, almacenamiento seguro y distribución de productos. Gestión de inventarios con registro WIP y reportes periódicos.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">🔄</div>
+      <div class="svc-name">Outsourcing Logístico</div>
+      <p class="svc-desc">Operación externalizada completa: personal certificado, vehículos, tecnología y líderes de cuenta dedicados a tu operación.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">07</div>
+      <div class="svc-icon">🏷️</div>
+      <div class="svc-name">Entregas COD</div>
+      <p class="svc-desc">Cobro contra entrega con gestión de efectivo y transferencias. Ideal para ventas directas y comercio electrónico.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">08</div>
+      <div class="svc-icon">📋</div>
+      <div class="svc-name">Recolección de Documentos</div>
+      <p class="svc-desc">Recolección y firma de solicitudes para instituciones bancarias, aseguradoras y empresas de servicios.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">09</div>
+      <div class="svc-icon">🛒</div>
+      <div class="svc-name">Distribución de Productos</div>
+      <p class="svc-desc">Distribución de medicamentos, material de curación, cosméticos, libros y productos de consumo en toda la región.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section id="coverage">
+  <div class="cov-intro">
+    <div class="reveal">
+      <div class="sec-label">Cobertura</div>
+      <h2 class="sec-title">Presente en todo el Sureste</h2>
+    </div>
+    <div class="reveal">
+      <p class="sec-body">Operamos en 8 estados con cobertura extendida a municipios, localidades y zonas industriales. Podemos ampliar nuestra red según el volumen y las necesidades de cada cliente.</p>
+    </div>
+  </div>
+  <div class="states-grid reveal">
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Yucatán</div><div class="state-pct">90%</div></div>
+      <div class="state-cities">Mérida · Progreso · Hunucmá · Umán · Valladolid · Izamal · Tizimín · Muna · Ticul · Tekax · Peto · Motul · Conkal · Hoctun y más</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Campeche</div><div class="state-pct">92%</div></div>
+      <div class="state-cities">Campeche · Calkiní · Champotón · Ciudad del Carmen · Hecelchakán · Sabancuy · Isla Aguada · Pomuch · Ceiba Playa</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Quintana Roo</div><div class="state-pct">88%</div></div>
+      <div class="state-cities">Cancún · Playa del Carmen · Chetumal · Cozumel · Isla Mujeres</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Tabasco</div><div class="state-pct">100%</div></div>
+      <div class="state-cities">Villahermosa · Dos Bocas · Ciudad del Carmen · Cobertura total del estado</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Chiapas</div><div class="state-pct">85%</div></div>
+      <div class="state-cities">Tuxtla Gutiérrez · Tapachula · Consultar disponibilidad en otros municipios</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Oaxaca</div><div class="state-pct">—</div></div>
+      <div class="state-cities">Cobertura disponible. Consultar rutas según volumen de operación</div>
+    </div>
+    <div class="state-card">
+      <div class="state-header"><div class="state-name">🗺 Estado de México</div><div class="state-pct">—</div></div>
+      <div class="state-cities">Zona conurbana de Ciudad de México y delegaciones del CDMX</div>
+    </div>
+    <div class="state-card highlight">
+      <div class="state-header"><div class="state-name">¿No ves tu zona?</div></div>
+      <div class="state-cities">Podemos ampliar cobertura a cualquier municipio según el volumen de entrega. Contáctanos y lo analizamos juntos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIADORES -->
+<section id="diferenciadores">
+  <div class="reveal">
+    <div class="sec-label">¿Por qué Seloste?</div>
+    <h2 class="sec-title">Nuestras ventajas</h2>
+  </div>
+  <div class="diff-grid reveal">
+    <div class="diff-card featured">
+      <div class="diff-big">96%</div>
+      <div class="diff-title">Eficiencia de entrega mínima</div>
+      <p class="diff-desc">Nos comprometemos con plazos y los cumplimos. Seguimiento riguroso, mejora continua y rendición de cuentas en cada operación.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-big">25+</div>
+      <div class="diff-title">Años de experiencia regional</div>
+      <p class="diff-desc">Conocemos el Sureste como nadie: sus rutas, sus particularidades y cómo operar con eficiencia en cada rincón del territorio.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-big">GPS</div>
+      <div class="diff-title">Tecnología de monitoreo satelital</div>
+      <p class="diff-desc">Toda nuestra flota opera con rastreo en tiempo real. Tú y tu cliente siempre saben dónde está el envío, con evidencia fotográfica incluida.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-big">360°</div>
+      <div class="diff-title">Soluciones a la medida</div>
+      <p class="diff-desc">Asignamos líderes de cuenta dedicados, diseñamos soluciones personalizadas y construimos relaciones de largo plazo basadas en confianza y resultados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section id="clientes">
+  <div class="reveal">
+    <div class="sec-label">Clientes satisfechos</div>
+    <h2 class="sec-title">Empresas que confían en nosotros</h2>
+    <p class="sec-body">Trabajamos con operadores de paquetería, instituciones de salud, empresas de belleza, entidades bancarias y organismos gubernamentales.</p>
+  </div>
+  <div class="clients-flex reveal">
+    <div class="client-chip">FedEx</div>
+    <div class="client-chip">UPS</div>
+    <div class="client-chip">Estafeta</div>
+    <div class="client-chip">DHL</div>
+    <div class="client-chip">Paquete Express</div>
+    <div class="client-chip">Logyt</div>
+    <div class="client-chip">Nexus Express</div>
+    <div class="client-chip">Carga y Express</div>
+    <div class="client-chip">Mensajería Jaguares</div>
+    <div class="client-chip">L'Bel de México</div>
+    <div class="client-chip">Laboratorios Lazer</div>
+    <div class="client-chip">CTR Scientific</div>
+    <div class="client-chip">Reader's Digest México</div>
+    <div class="client-chip">Crehnos de México</div>
+    <div class="client-chip">Pemex</div>
+    <div class="client-chip">IMSS</div>
+    <div class="client-chip">AG Transportes</div>
+    <div class="client-chip">Instituciones Bancarias</div>
+  </div>
+</section>
+
+<!-- FLOTA -->
+<section id="flota">
+  <div class="reveal">
+    <div class="sec-label">Infraestructura</div>
+    <h2 class="sec-title">Nuestra flota</h2>
+    <p class="sec-body">15 unidades de diferentes capacidades para cubrir desde mensajería urgente hasta distribución de carga mayor en todo el Sureste.</p>
+  </div>
+  <div class="fleet-grid reveal">
+    <div class="fleet-card"><div class="fleet-icon">🚐</div><div class="fleet-model">Kango</div><div class="fleet-units">5 unidades</div></div>
+    <div class="fleet-card"><div class="fleet-icon">🚛</div><div class="fleet-model">JAC X250</div><div class="fleet-units">2 unidades</div></div>
+    <div class="fleet-card"><div class="fleet-icon">🚛</div><div class="fleet-model">Ford 3/5</div><div class="fleet-units">3 unidades</div></div>
+    <div class="fleet-card"><div class="fleet-icon">🚚</div><div class="fleet-model">IZUSO F450</div><div class="fleet-units">2 unidades</div></div>
+    <div class="fleet-card"><div class="fleet-icon">🚛</div><div class="fleet-model">JAC X200</div><div class="fleet-units">3 unidades</div></div>
+  </div>
+  <div class="certs-wrap reveal">
+    <div class="certs-title">Permisos y certificaciones</div>
+    <div class="certs-list">
+      <div class="cert-tag">Permiso SCT</div>
+      <div class="cert-tag">Placas Federales y Estatales</div>
+      <div class="cert-tag">Rastreo Satelital GPS</div>
+      <div class="cert-tag">Seguros de Carga</div>
+      <div class="cert-tag">Licencias Federales</div>
+      <div class="cert-tag">Equipo de Seguridad Integral</div>
+      <div class="cert-tag">Acceso a CEDIs Certificado</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="sec-label">¿Listo para empezar?</div>
+  <h2 class="sec-title" style="max-width:600px; margin: 0 auto 16px;">Hablemos de tu operación</h2>
+  <p class="sec-body" style="margin: 0 auto 48px;">Cotiza sin compromiso. Nuestro equipo analiza tus necesidades y te diseña una solución logística a la medida.</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="cc-label">📞 Teléfono</div>
+      <div class="cc-val">
+        <a href="tel:9999478642">999 947 8642</a><br>
+        <a href="tel:9994948187">999 494 8187</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-label">✉️ Correo</div>
+      <div class="cc-val">
+        <a href="/cdn-cgi/l/email-protection#711c141f02101b140318103102141d1e0205145f1f1405"><span class="__cf_email__" data-cfemail="6a070f04190b000f18030b2a190f0605191e0f44040f1e">[email&#160;protected]</span></a><br>
+        <a href="/cdn-cgi/l/email-protection#5b332e36393e292f341b283e3734282f3e75353e2f"><span class="__cf_email__" data-cfemail="f098859d929582849fb083959c9f838495de9e9584">[email&#160;protected]</span></a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="cc-label">📍 Dirección</div>
+      <div class="cc-val">C. 39 530a, Centro<br>97000 Mérida, Yucatán</div>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="/cdn-cgi/l/email-protection#8be6eee5f8eae1eef9e2eacbf8eee7e4f8ffeea5e5eeff" class="btn-white">Enviar cotización →</a>
+    <a href="https://www.facebook.com/SELOSTE" target="_blank" class="btn-ghost-white">Visitar Facebook</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 Seloste – Servicios Logísticos del Sureste S.A. de C.V.</div>
+  <div class="foot-links">
+    <a href="https://seloste.net" target="_blank">seloste.net</a>
+    <a href="https://www.facebook.com/SELOSTE" target="_blank">Facebook</a>
+    <a href="tel:9999478642">999 947 8642</a>
+  </div>
+</footer>
+
+<s
